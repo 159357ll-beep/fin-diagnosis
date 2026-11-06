@@ -1,7 +1,4 @@
+# 云端部署依赖（云端只用 app.py，仅需这两个）
+# 本地其它脚本所需依赖见 requirements-dev.txt
 streamlit>=1.30,<2.0
 pandas>=1.5,<3.0
-
-# 下面两个依赖只被本地其它脚本用到（fcff_dcf_valuation.py、midea_app.py），
-# app.py 不需要；云上构建想更快可以删掉。
-openpyxl>=3.1
-pypdf>=5.0

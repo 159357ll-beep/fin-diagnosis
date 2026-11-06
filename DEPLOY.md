@@ -28,7 +28,8 @@ git push
 
 | 文件 | 作用 |
 | --- | --- |
-| `requirements.txt` | 依赖清单（云平台据此安装） |
+| `requirements.txt` | 云端依赖清单，只含 `streamlit` + `pandas`（`app.py` 的全部依赖） |
+| `requirements-dev.txt` | 本地其它脚本（`midea_app.py`、`fcff_*.py`）额外需要的 `openpyxl`、`pypdf`；云端不安装 |
 | `.streamlit/config.toml` | 主题、关闭使用统计、公网不暴露堆栈 |
 | `Dockerfile` | 通用镜像，监听 `$PORT`，自带健康检查 |
 | `docker-compose.yml` | 在自有服务器上一键起服务 |

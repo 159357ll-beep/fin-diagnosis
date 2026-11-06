@@ -1,0 +1,6 @@
+# 本地脚本额外依赖（云端部署不会安装）：
+#   fcff_dcf_valuation.py、fcff_wacc_app.py -> openpyxl（导出 Excel）
+#   midea_app.py -> pypdf（读取 PDF）、openpyxl（导出 Excel）
+-r requirements.txt
+openpyxl>=3.1
+pypdf>=5.0
