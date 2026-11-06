@@ -21,18 +21,25 @@
 
 前提：代码在一个 GitHub 仓库里。
 
-1. 安装 Git（本机当前没有）：`winget install --id Git.Git -e`，重开终端。
-2. 在项目目录初始化并推送：
+**本机已完成的准备**（无需重做）：
+
+- Git 已装好：`C:\Users\fcr20\.local\PortableGit\cmd\git.exe`，已加入用户 PATH（新开终端可直接用 `git`）
+- 仓库已初始化并提交到 `main` 分支（19 个文件，约 50 KB）
+- SSH 密钥已生成：私钥 `~/.ssh/id_ed25519`，公钥 `~/.ssh/id_ed25519.pub`；`github.com` 已写入 `known_hosts`
+
+**还需要你做的：**
+
+1. 注册 GitHub（需邮箱验证）：<https://github.com/signup>
+2. 建一个**空**仓库：New repository → 名称如 `fin-diagnosis` → 不要勾选 README / .gitignore / license → Create。
+3. 把公钥加到账号：右上头像 → Settings → SSH and GPG keys → New SSH key → 粘贴 `C:\Users\fcr20\.ssh\id_ed25519.pub` 的全部内容。
+4. 在项目目录推送（把 `<用户名>` 换成你的 GitHub 用户名）：
    ```powershell
-   git init
-   git add .
-   git commit -m "deploy: streamlit app"
-   git branch -M main
-   git remote add origin https://github.com/<你的用户名>/<仓库名>.git
+   git remote add origin git@github.com:<用户名>/fin-diagnosis.git
    git push -u origin main
    ```
-3. 打开 <https://share.streamlit.io> → New app → 选仓库、分支 `main`、主文件 `app.py` → Deploy。
-4. 得到形如 `https://<app名>.streamlit.app` 的公网地址，电脑关机也能访问。
+   首次连接若提示 `Are you sure you want to continue connecting?`，输入 `yes`。
+5. 打开 <https://share.streamlit.io> → GitHub 授权登录 → New app → 选仓库、分支 `main`、主文件 `app.py` → Deploy。
+6. 得到形如 `https://<app名>.streamlit.app` 的公网地址，电脑关机也能访问。
 
 > 免费档的限制：无人访问一段时间后会自动休眠，下次访问需要等十几秒冷启动；已保存的 `st.session_state` 会丢失（本应用是纯计算，无影响）。
 
