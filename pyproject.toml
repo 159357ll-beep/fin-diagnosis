@@ -1,0 +1,8 @@
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+# 只保留真正影响运行的规则：语法错误、未定义名称、导入问题
+select = ["E9", "F", "I"]
+ignore = ["E501"]

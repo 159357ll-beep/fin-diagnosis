@@ -1,0 +1,21 @@
+__pycache__/
+*.py[cod]
+
+# 本地运行时与安装包，不要上传
+.deps/
+.tools/
+.pip-tmp/
+installers/
+pip-*/
+.vscode/
+
+# 日志与临时产物
+*.log
+debug.log
+
+# 敏感信息
+.env
+.streamlit/secrets.toml
+
+# 计算结果
+FCFF_valuation_result.xlsx

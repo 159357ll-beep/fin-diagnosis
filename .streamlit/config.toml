@@ -1,0 +1,9 @@
+[browser]
+gatherUsageStats = false
+
+[theme]
+base = "light"
+
+[client]
+# 公网部署时不要把 Python 堆栈信息暴露给访问者
+showErrorDetails = "none"

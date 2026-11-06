@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: fin-diagnosis
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /_stcore/health
+    autoDeploy: true
