@@ -1,5 +1,27 @@
 # 云端部署说明（智能财务诊断与估值系统）
 
+## 已上线（2026-11-06）
+
+| 项目 | 值 |
+| --- | --- |
+| 公网访问地址 | <https://fin-diagnosis.streamlit.app> |
+| 代码仓库 | <https://github.com/159357ll-beep/fin-diagnosis>（公开，`main` 分支） |
+| 部署平台 | Streamlit Community Cloud（免费档） |
+| 主文件 | `app.py`（仓库根目录） |
+| 管理后台 | <https://share.streamlit.io> → Your apps → `fin-diagnosis` |
+
+日常更新只需提交并推送，平台会自动重新部署（想手动触发就到管理后台点 **Reboot / Rerun**，构建日志也在那一页）：
+
+```powershell
+git add -A
+git commit -m "feat: 修改说明"
+git push
+```
+
+若网页提示需要唤醒，免费档冷启动约十几秒属正常；应用不落盘，休眠不会丢数据。
+
+---
+
 本应用是单文件 Streamlit 程序（`app.py`），运行期只需要 `streamlit` + `pandas`，不读写本地文件、不需要数据库，因此可以部署到任何支持 Python/容器的平台。
 
 已为你准备好的文件：
@@ -19,29 +41,27 @@
 
 ## 方案一：Streamlit Community Cloud（免费、最快，推荐先试）
 
-前提：代码在一个 GitHub 仓库里。
+本应用已用该方案部署完成，以下为实际执行记录（首次部署时走过一次即可，之后无需重做）：
 
-**本机已完成的准备**（无需重做）：
+1. 仓库初始化并提交到 `main`（19 个文件）。
+2. 生成 SSH 密钥 `~/.ssh/id_ed25519`，公钥（标题 `fcr20-local-deploy`）添加到 GitHub 账号。
+3. 建**空**仓库 `fin-diagnosis`，然后：
 
-- Git 已装好：`C:\Users\fcr20\.local\PortableGit\cmd\git.exe`，已加入用户 PATH（新开终端可直接用 `git`）
-- 仓库已初始化并提交到 `main` 分支（19 个文件，约 50 KB）
-- SSH 密钥已生成：私钥 `~/.ssh/id_ed25519`，公钥 `~/.ssh/id_ed25519.pub`；`github.com` 已写入 `known_hosts`
-
-**还需要你做的：**
-
-1. 注册 GitHub（需邮箱验证）：<https://github.com/signup>
-2. 建一个**空**仓库：New repository → 名称如 `fin-diagnosis` → 不要勾选 README / .gitignore / license → Create。
-3. 把公钥加到账号：右上头像 → Settings → SSH and GPG keys → New SSH key → 粘贴 `C:\Users\fcr20\.ssh\id_ed25519.pub` 的全部内容。
-4. 在项目目录推送（把 `<用户名>` 换成你的 GitHub 用户名）：
    ```powershell
-   git remote add origin git@github.com:<用户名>/fin-diagnosis.git
+   git remote add origin git@github.com:159357ll-beep/fin-diagnosis.git
    git push -u origin main
    ```
-   首次连接若提示 `Are you sure you want to continue connecting?`，输入 `yes`。
-5. 打开 <https://share.streamlit.io> → GitHub 授权登录 → New app → 选仓库、分支 `main`、主文件 `app.py` → Deploy。
-6. 得到形如 `https://<app名>.streamlit.app` 的公网地址，电脑关机也能访问。
+
+4. <https://share.streamlit.io> 用 GitHub 登录 → 授权 Streamlit OAuth App → Deploy an app：
+   - Repository：`159357ll-beep/fin-diagnosis`
+   - Branch：`main`
+   - Main file path：`app.py`
+   - App URL：`fin-diagnosis`
+5. 构建完成后公网地址为 <https://fin-diagnosis.streamlit.app>，电脑关机也能访问。
 
 > 免费档的限制：无人访问一段时间后会自动休眠，下次访问需要等十几秒冷启动；已保存的 `st.session_state` 会丢失（本应用是纯计算，无影响）。
+>
+> 注意：GitHub 的 OAuth 授权页有时把「Authorize streamlit」按钮显示为灰色不可点（通常是页面脚本或网络抖动导致），刷新页面重试即可。
 
 ---
 
